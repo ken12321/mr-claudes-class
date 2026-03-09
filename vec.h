@@ -1,24 +1,48 @@
+#ifndef VEC_H
+#define VEC_H
+
 #include <iostream>
-#include "vec.h"
+#include <cmath>
 
-int main()
-{
-    int row = 256;
-    int col = 256;
+struct Vec3 {
+    double x, y, z;
 
-    std::cout << "P3\n" << col << " " << row << "\n" << "255\n"; 
-    
-    for(int x = 0; x < row; x++)
+    Vec3(double x = 0, double y = 0, double z = 0) : x(x), y(y), z(z) {}
+
+    Vec3 operator+(const Vec3& other_vec) const
     {
-        for(int i = 0; i < col; i ++)
-        {
-            Vec3 vect(i, x, 0);
-            std::cout << vect.x << " " << vect.y << " " << vect.z << "\n";
-        }
+        return Vec3(x + other_vec.x, y + other_vec.y, z + other_vec.z);
     }
-    
-    return 0;
-}
+
+    Vec3 operator-(const Vec3& other_vec) const
+    {
+        return Vec3(x - other_vec.x, y - other_vec.y, z - other_vec.z);
+    }
+
+    Vec3 operator*(const double scalar) const
+    {
+        return Vec3(x * scalar, y * scalar, z * scalar);
+    }
+
+    Vec3 operator-() const
+    {
+        return Vec3(-x , -y, -z);
+    }
+
+    double length() const
+    {
+        return std::sqrt(x*x + y*y + z*z);
+    }
+
+    double dot(const Vec3& other_vec) const 
+    {
+        return ( (x * other_vec.x) + (y * other_vec.y) + (z * other_vec.z) );
+    }
+};
+
+#endif
+
+
 
 /*
 
@@ -36,8 +60,8 @@ int main()
   C# Comparison
 
   In C#, struct vs class controls value-type vs reference-type semantics.
-  In C++, struct and class are almost identical — the only difference is default access (public vs
-  private). By convention, struct is used for simple data aggregates, class for things with complex behavior. But the compiler doesn't care.
+  In C++, struct and class are almost identical — the only difference is default access (public vs private). 
+  By convention, struct is used for simple data aggregates, class for things with complex behavior. But the compiler doesn't care.
 
   The bigger difference: in C++, both structs and classes live on the stack by default.
   Nothing goes to the heap unless you explicitly ask for it.
@@ -56,5 +80,5 @@ int main()
   - What does const mean on a method, and which methods here should be const?
   - Should operators return by value or by reference?
   - What's sizeof(Vec3)? Try printing it — does the answer surprise you?
-  
+
 */
