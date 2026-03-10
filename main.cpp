@@ -1,21 +1,29 @@
 #include <iostream>
 #include "vec.h"
+#include "ray.h"
 
 int main()
 {
     Vec3 vector(5, 5, 2);
-    Vec3* pointer = &vector;
+    Vec3 vectortwo(2, 2, 4);
 
-    std::cout << "Pointer: " << pointer << "\n";
-    std::cout << "Pointer.x: " << pointer->x << "\n";
+    Ray ray(vector, vectortwo);
 
-    pointer->x = 1;
+    const Vec3& origin = ray.getOrigin();
+    const Vec3& direction = ray.getDirection();
 
-    std::cout << "New pointer.x: " << pointer->x << "\n";
+    std::cout << "Origin: " << origin.x << ", " << origin.y << ", " << origin.z << "\n";
+    std::cout << "Direction: " << direction.x << ", " << direction.y << ", " << direction.z << "\n";
 
-    std::cout << "Before normalisation: " << vector.x << "\n";
-    (*pointer).normalise();
-    std::cout << "proving change:" << vector.x << "\n";
+    Vec3 rayatzero = ray.at(0);
+    Vec3 rayatone = ray.at(1);
+    Vec3 rayattwo = ray.at(2);
+    std::cout << "Ray at 0: " << rayatzero.x << ", " << rayatzero.y << ", " << rayatzero.z << "\n";
+    std::cout << "Ray at 1: " << rayatone.x << ", " << rayatone.y << ", " << rayatone.z << "\n";
+    std::cout << "Ray at 2: " << rayattwo.x << ", " << rayattwo.y << ", " << rayattwo.z << "\n";
+
+    std::cout << "Original Distance: " << vectortwo.x << ", " << vectortwo.y << ", " << vectortwo.z << "\n";
+    std::cout << "Normalised Distance: " << direction.x << ", " << direction.y << ", " << direction.z << "\n";
 
 
     // int row = 256;
