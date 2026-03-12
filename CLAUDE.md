@@ -72,4 +72,33 @@ g++ -std=c++17 -Wall -Wextra -o raytracer main.cpp && ./raytracer > image.ppm
 
 ## Current Progress
 
-See memory file: `/home/ken/.claude/projects/-home-ken-Desktop-mr-claudes-class/memory/MEMORY.md`
+| Module | Status |
+|--------|--------|
+| 0 — Toolchain | Complete |
+| 1 — First program | Complete |
+| 2 — Memory model & structs | Complete |
+| 3 — Pointers & references | Complete |
+| 4 — Classes & destructors | Complete |
+| 5 — RAII & smart pointers | Complete |
+| 6 — Polymorphism | Complete |
+| 7 — Templates | In progress |
+| 8 — Move semantics | Not started |
+| 9 — STL & modern C++ | Not started |
+
+### Current Task (Module 7)
+
+Convert `Vec3` to a template class `Vec3<T>`, add a `using Vec3d = Vec3<double>` alias, and make `dot()` and `reflect()` template functions.
+
+### Code Structure
+- `vec.h` — Vec3 struct with operator overloading, normalise, reflect, dot
+- `ray.h` — Ray class with private members and const getters
+- `sphere.h` — Sphere inherits from Hittable, implements hit()
+- `hittable.h` — Abstract base class with pure virtual hit() and virtual destructor
+- `main.cpp` — vector<unique_ptr<Hittable>>, iterates and calls hit()
+
+### Concepts Confirmed
+- unique_ptr copy constructor is explicitly deleted (= delete)
+- std::vector destruction order is implementation-defined (observed FIFO on GCC)
+- virtual destructor on base class required when deleting through base pointer
+- override keyword catches signature mismatches at compile time
+- Most vexing parse: Ray ray() declares a function, not a variable
