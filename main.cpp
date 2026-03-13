@@ -9,11 +9,19 @@
 
 int main()
 {
-    Vec3d v1(1,2,3);
-    Vec3d v2(1,2,3);
+    Sphere sphere(Vec3d(3,3,3), 1.5);
 
-    v2 = std::move(v1);
-    printf("v2 x: %0.2f, y: %0.2f, z: %0.2f\n", v2.x, v2.y, v2.z);
+    Ray ray(Vec3d(0,0,0), Vec3d(-1,-1,-1));
+
+    auto result = sphere.hit(ray);
+    if (result)
+    {
+        std::cout << "A hit\n";
+    }
+    else
+    {
+        std::cout << "A miss\n";
+    }
 
     return 0;
 }

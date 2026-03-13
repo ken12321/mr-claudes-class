@@ -4,6 +4,8 @@
 #include "vec.h"
 #include "hittable.h"
 #include <iostream>
+#include <optional>
+#include <cmath>
 
 struct Sphere : public Hittable
 {
@@ -12,14 +14,28 @@ struct Sphere : public Hittable
 
     Sphere(Vec3d c, double r) : center(c), radius(r) {}
 
-    bool hit(const Ray& ray) const override
+    std::optional<HitRecord> hit(const Ray& ray) const override
     {
-        return false;
-    }
+        float a = dot(ray.getDirection(), ray.getDirection());
+        float b = 2 * dot(ray.getDirection(), ray.getOrigin() - center) - (radius*radius);
+        float c = dot(ray.getOrigin() - center, ray.getOrigin() - center) - (radius*radius);
 
-    ~Sphere()
-    {
-        printf("Sphere destroyed at [%.2f, %.2f, %.2f]\n", center.x, center.y, center.z);
+        float discriminant = (b*b) - 4*(a*c);
+        if (discriminant < 0)
+        {
+            return std::nullopt;
+        }
+
+        float t = (-b - std::sqrt(discriminant)) / (a*a);
+        if (t > 0)
+        {
+            Vec3d point = ray.at(t);
+            Vec3d normal = point - center;
+            normal.normalise();
+
+            return HitRecord(point, normal, t);
+        }
+        return std::nullopt;
     }
 };
 
