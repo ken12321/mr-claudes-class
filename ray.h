@@ -8,7 +8,7 @@ class Ray {
     private:
         Vec3d _origin, _direction;
     public:
-        Ray(const Vec3d& _o, const Vec3d& _d) : _origin(_o), _direction(_d) 
+        Ray(const Vec3d& origin, const Vec3d& direction) : _origin(origin), _direction(direction) 
         {
             _direction.normalise();
         }

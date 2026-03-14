@@ -7,8 +7,6 @@
 
 struct Hittable
 {
-    Hittable() {}
-
     virtual std::optional<HitRecord> hit(const Ray& ray) const = 0;
 
     virtual ~Hittable() = default;

@@ -16,9 +16,11 @@ struct Sphere : public Hittable
 
     std::optional<HitRecord> hit(const Ray& ray) const override
     {
-        double a = dot(ray.getDirection(), ray.getDirection());
-        double b = 2 * dot(ray.getDirection(), ray.getOrigin() - center);
-        double c = dot(ray.getOrigin() - center, ray.getOrigin() - center) - (radius*radius);
+        Vec3d direction = ray.getDirection();
+        Vec3d origin = ray.getOrigin();
+        double a = dot(direction, direction);
+        double b = 2 * dot(direction, origin - center);
+        double c = dot(origin - center, origin - center) - (radius*radius);
 
         double discriminant = (b*b) - 4*(a*c);
         if (discriminant < 0)

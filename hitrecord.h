@@ -9,7 +9,7 @@ struct HitRecord
     Vec3d normal;
     double t;
 
-    HitRecord(Vec3d _p, Vec3d _n, double _t) : point(_p), normal(_n), t(_t) {} 
+    HitRecord(Vec3d point, Vec3d normal, double t) : point(point), normal(normal), t(t) {} 
 };
 
 #endif
